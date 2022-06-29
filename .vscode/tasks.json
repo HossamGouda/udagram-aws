@@ -1,0 +1,13 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "api:build",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "npm: api:build",
+			"detail": "cd udagram/udagram-api && npm run build"
+		}
+	]
+}
