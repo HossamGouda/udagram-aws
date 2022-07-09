@@ -56,8 +56,6 @@ jobs:
           name: SET ENV VARS
           #  Setting the ENV from Circle CI
           command: |
-            eb list / eb use udagram-api-deve 
-          command: |
             npm run setEnvs
       - run:
           name: Deploy App
