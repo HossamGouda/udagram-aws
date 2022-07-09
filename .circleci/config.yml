@@ -53,8 +53,13 @@ jobs:
       - aws-cli/setup
       - checkout
       - run:
+          name: SET ENV VARS
+          #  Setting the ENV from Circle CI
+          command: |
+            npm run setEnvs
+      - run:
           name: Deploy App
-          # TODO: Install, build, deploy in both apps
+          #  Install, build, deploy in both apps
           command: |
             npm run deploy
 workflows:

@@ -56,84 +56,6 @@ There is a a folder named AWS Screen shots in the project root for All AWS Servi
 
 This project linked with Circle Ci account with github master branch and the pipe line process will work as the following.For Further information you can check the documentaion folder int the project root.
 
-```
-version: 2.1
-orbs:
-  # orbs contain basic recipes and reproducible actions (install node, aws, etc.)
-  node: circleci/node@5.0.2
-  eb: circleci/aws-elastic-beanstalk@2.0.1
-  aws-cli: circleci/aws-cli@3.1.1
-  # different jobs are calles later in the workflows sections
-jobs:
-  build:
-    docker:
-      # the base image can run most needed actions with orbs
-      - image: "cimg/node:14.15"
-    steps:
-      # install node and checkout code
-      - node/install:
-          node-version: "14.15"
-      - checkout
-      - aws-cli/setup
-      # Use root level package.json to install dependencies in the frontend app
-      - run:
-          name: Install Front-End Dependencies
-          command: |
-            npm run frontend:install
-      # TODO: Install dependencies in the the backend API
-      - run:
-          name: Install API Dependencies
-          command: |
-            npm run api:install
-      # TODO: Lint the frontend
-      - run:
-          name: Front-End Lint
-          command: |
-            npm run frontend:lint
-      # TODO: Build the frontend app
-      - run:
-          name: Front-End Build
-          command: |
-            npm run frontend:build
-      # TODO: Build the backend API
-      - run:
-          name: API Build
-          command: |
-            npm run api:build
-  # deploy step will run only after manual approval
-  deploy:
-    docker:
-      - image: "cimg/base:stable"
-      # more setup needed for aws, node, elastic beanstalk
-    steps:
-      - node/install:
-          node-version: "14.15"
-      - eb/setup
-      - aws-cli/setup
-      - checkout
-      - run:
-          name: Deploy App
-          # TODO: Install, build, deploy in both apps
-          command: |
-            npm run deploy
-workflows:
-  udagram:
-    jobs:
-      - build
-      - hold:
-          filters:
-            branches:
-              only:
-                - master
-          type: approval
-          requires:
-            - build
-      - deploy:
-          requires:
-            - build
-
-```
-
 ## Backend-API Files Tree
 
 ```
@@ -262,5 +184,3 @@ src
 - [Express](https://expressjs.com/) - Javascript API Framework
 
 ## License
-
-[License](LICENSE.txt)
